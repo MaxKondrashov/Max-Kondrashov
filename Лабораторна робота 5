@@ -1,0 +1,56 @@
+#1
+
+import random
+s1_list = ['Capital','City','Town','District']
+s2_list = ['is','or','and','to']
+s3_list = ['New York', 'Los Angeles', 'Chicago', 'Houston', 'Philadelphia']
+print(random.choice(s1_list),random.choice(s2_list),random.choice(s3_list))
+
+#2
+
+import csv
+import sys
+
+filename = 'gg.txt'
+file = open('gg.txt', 'r').read()
+print(file)
+print('Кількість слів:',len(file))
+
+#3 (перевірка наяності однакових слів)
+
+file = open('gg.txt', 'r').read()
+
+setup = set(file)
+if len(file) == len(setup):
+    print('Немає однакових слів')
+else:
+    print('Є однакові слова')
+
+#3 (кількість однакових та різних слів)
+
+
+import re
+import string
+frequency = {}
+document_text = open('gg.txt', 'r') #сохранить текстовый файл в строковой переменной
+text_string = document_text.read().lower() #превратить все буквы в нашем документе в строчные буквы
+match_pattern = re.findall(r'\b[a-z]{3,15}\b', text_string) #выражение, которое вернет все слова с количеством символов в диапазоне [3;15]
+ 
+for word in match_pattern:
+    count = frequency.get(word,0)
+    frequency[word] = count + 1
+     
+frequency_list = frequency.keys()
+ 
+for words in frequency_list: #узнать слово и его частоту 
+    print (words, frequency[words])
+
+#10 варіант
+import re
+
+with open("gg.txt", "rb") as f:
+    s = re.sub(r'\s+', ' ', f.read().decode('WINDOWS-1251'), flags=re.M)
+for s in re.split(r'(?<=[.!?…]) ', s):
+    print(s)
+    
+print(file.istitle())
