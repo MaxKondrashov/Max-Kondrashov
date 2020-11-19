@@ -1,0 +1,66 @@
+#1 подсчет тегов
+
+
+import requests
+from lxml import html
+from collections import Counter
+ 
+url = 'https://football.ua/england/435710-nunu-ehshpiritu-santu-o-netipichnojj-skheme-tonkostjakh-igry-vulverkhehmptona-i-luchshikh-v-anglii-driblerakh.html'
+page = requests.get(url)
+tree = html.fromstring(page.content)
+ 
+all_elms = tree.cssselect('*')
+all_tags = [x.tag for x in all_elms]
+ 
+c = Counter(all_tags)
+ 
+# print('all:', len(all_elms), 'span:', c['span'])
+ 
+for e in c:
+    print('{}: {}'.format(e, c[e]))
+
+
+#2 подсчет слов
+
+
+import requests
+import lxml.html
+import re
+ 
+url = 'https://football.ua/england/435710-nunu-ehshpiritu-santu-o-netipichnojj-skheme-tonkostjakh-igry-vulverkhehmptona-i-luchshikh-v-anglii-driblerakh.html'
+css_post = 'div#post_message_10374313'
+ 
+resp = requests.get(url)
+tree = lxml.html.fromstring(resp.text)
+posts = tree.cssselect(css_post)
+if posts is not None: 
+    post_content = posts[0].text_content().strip()
+    print(post_content)
+    words = re.findall(r'\w+', post_content) # примитивный способ разбивки на слова-токены, очень не точный
+    print(words)
+    print(len(words)) # всего токенов без учета регистра и повторов
+ 
+    words = {word.lower() for word in re.findall(r'\w+', post_content)} # уникальные токены с нормализованным регистром
+    print(words)
+    print(len(words))
+
+
+#3 подсчет изображений
+
+
+import urllib
+import urllib.request
+import re
+img_pat = re.compile('<img.*>',re.I)
+
+def get_img_cnt(url):
+  try:
+      w =  urllib.request.urlopen(url)
+  except IOError:
+      sys.stderr.write("Couldn't connect to %s " % url)
+      sys.exit(1)
+  contents =  str(w.read())
+  img_num = len(img_pat.findall(contents))
+  return (img_num)
+
+print (get_img_cnt('https://football.ua/england/435710-nunu-ehshpiritu-santu-o-netipichnojj-skheme-tonkostjakh-igry-vulverkhehmptona-i-luchshikh-v-anglii-driblerakh.html'))
