@@ -1,0 +1,55 @@
+#1 график f()
+                  
+import matplotlib.pyplot as plt
+from numpy import *
+import numpy as np
+from math import sin
+from math import cos
+
+x = np.linspace(0, 10, 100)                     # от 0 до 10 сделать 100 точек
+y1 = -5*cos(10*x)*sin(3*x)/(x^(1/2))                    
+y2 = ((-5*sin(3*x)*cos(10*x)/(x^1/2))           # производная для точек
+      
+fig, ax = plt.subplots() 
+plt.plot(x, y1, color="blue", label="y(x)")      # функция y1(x), синий, надпись y(x)
+plt.plot(x, y2, color="red", label="y'(x)")      # функция y2(x), красный, надпись y'(x)
+plt.set_xlabel("x")                              # подпись у горизонтальной оси х
+plt.set_ylabel("y")                              # подпись у вертикальной оси y
+plt.legend()                                     # показывать условные обозначения
+
+plt.show()                                      # показать рисунок
+fig.savefig('1.png')                            # сохранить в файл 1.png
+
+#2 подсчет кол-во букв и составление гистограмы
+                       
+import matplotlib.pyplot as plt
+import numpy as np
+import pylab
+from collections import Counter
+
+def lettersBar():
+    alphabet = [й, ц, у, к, е, н, г, ш, щ, з, х, ї, ф, і, в, а, п, р, о, л, д, ж, є, я, ч, с, м, и, т, ь, б, ю]
+
+    fot i range (0, len(alphabet)):
+        xdata = [alphabet[i]]
+        ydata = [text.count(alphabet[i])]
+        pylab.bar (xdata, ydata)
+    pylab.show()
+lettersBar()
+
+#3 подсчет символов в тексте и создание гистограмы
+
+import matplotlib.pyplot as plt
+import numpy as np
+import pylab
+from collections import Counter
+
+def sentencesBar ():
+    symb = ['!', '?','.']
+
+    for i in range (0, len(symb)):
+        xdata = [sybl[i]]
+        ydata = [text.count(sybl[i])]
+        pylab.bar (xdata, ydata)
+    pylab.show()
+sentencesBar()
